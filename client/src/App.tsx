@@ -10,10 +10,11 @@ import TableRow from "@mui/material/TableRow/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 import { TableContainer } from "@mui/material";
 import { useEffect, useState } from "react";
-
+import CircularProgress from "@mui/material/CircularProgress";
 const styles = {
   root: { width: "100%", overflowX: "auto" },
   table: { minWidth: 1080 },
+  progress: { margin: "10", display: "flex" },
 };
 
 function App() {
@@ -52,8 +53,14 @@ function App() {
   };
 
   const [customers, setCustomers] = useState<CustomerProps[]>([]);
+  const [completed, setCompleted] = useState<number>(0);
+
+  function progeress(): void {
+    completed >= 100 ? setCompleted(0) : setCompleted(completed + 1);
+  }
 
   useEffect(() => {
+    setInterval(() => progeress(), 20);
     callApi()
       .then(setCustomers)
       .catch((err) => console.log(err));
@@ -73,19 +80,33 @@ function App() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {customers.map((customerData, idx) => {
-            return (
-              <Customer
-                key={idx}
-                id={customerData.id}
-                img={customerData.img}
-                age={customerData.age}
-                job={customerData.job}
-                name={customerData.name}
-                gender={customerData.gender}
-              ></Customer>
-            );
-          })}
+          {completed ? (
+            customers.map((customerData, idx) => {
+              return (
+                <Customer
+                  key={idx}
+                  id={customerData.id}
+                  img={customerData.img}
+                  age={customerData.age}
+                  job={customerData.job}
+                  name={customerData.name}
+                  gender={customerData.gender}
+                />
+              );
+            })
+          ) : (
+            <TableRow>
+              <TableCell colSpan={6} align="center">
+                {" "}
+                //!왜인지모르겠으나 안나옴
+                <CircularProgress
+                  sx={styles.progress}
+                  variant="determinate"
+                  value={completed}
+                />
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </TableContainer>
