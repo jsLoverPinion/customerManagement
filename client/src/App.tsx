@@ -2,7 +2,6 @@ import "./App.css";
 import Customer from "./components/Customer";
 import "normalize.css";
 import CustomerProps from "./model/CustomerProps";
-import user from "./img/user.jpg";
 import Paper from "@mui/material/Paper/Paper";
 import Table from "@mui/material/Table/Table";
 import TableHead from "@mui/material/TableHead/TableHead";
@@ -10,6 +9,7 @@ import TableBody from "@mui/material/TableBody/TableBody";
 import TableRow from "@mui/material/TableRow/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 import { TableContainer } from "@mui/material";
+import { useEffect, useState } from "react";
 
 const styles = {
   root: { width: "100%", overflowX: "auto" },
@@ -18,34 +18,48 @@ const styles = {
 
 function App() {
   //
-  const customerArray: CustomerProps[] = [
-    {
-      id: 0,
-      name: "jhone",
-      age: 1,
-      gender: "female",
-      img: user,
-      job: "student",
-    },
-    {
-      id: 1,
-      name: "ffff",
-      age: 1,
-      gender: "female",
-      img: user,
-      job: "student",
-    },
-    {
-      id: 2,
-      name: "gg",
-      age: 1,
-      gender: "female",
-      img: user,
-      job: "student",
-    },
-  ];
+  // const customerArray: CustomerProps[] = [
+  //   {
+  //     id: 0,
+  //     name: "jhone",
+  //     age: 1,
+  //     gender: "female",
+  //     img: "https://img.freepik.com/free-icon/user_318-563642.jpg?w=360",
+  //     job: "student",
+  //   },
+  //   {
+  //     id: 1,
+  //     name: "ffff",
+  //     age: 1,
+  //     gender: "female",
+  //     img: "https://img.freepik.com/free-icon/user_318-563642.jpg?w=360",
+  //     job: "student",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "gg",
+  //     age: 1,
+  //     gender: "female",
+  //     img: "https://img.freepik.com/free-icon/user_318-563642.jpg?w=360",
+  //     job: "student",
+  //   },
+  // ];
   //
+  const callApi = async () => {
+    const response = await fetch("http://localhost:5000/api/customers");
+    const body = await response.json();
+    return Promise.resolve(body);
+  };
 
+  const [customers, setCustomers] = useState<CustomerProps[]>([]);
+
+  useEffect(() => {
+    callApi()
+      .then(setCustomers)
+      .catch((err) => console.log(err));
+  }, []);
+
+  //
   return (
     <TableContainer component={Paper} sx={styles.root}>
       <Table sx={styles.table} aria-label="simple table">
@@ -59,7 +73,7 @@ function App() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {customerArray.map((customerData, idx) => {
+          {customers.map((customerData, idx) => {
             return (
               <Customer
                 key={idx}
