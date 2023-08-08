@@ -1,7 +1,7 @@
 export default interface CustomerProps {
   id?: number;
   name?: string;
-  age?: number;
+  age?: string;
   gender?: "male" | "female";
   img?: string;
   job?: string;

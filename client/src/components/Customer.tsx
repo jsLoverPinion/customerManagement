@@ -8,7 +8,7 @@ const Customer: React.FC<CustomerProps> = ({
   age,
   gender,
   img,
-  id,
+  // id,
   job,
 }) => {
   return (
@@ -26,32 +26,6 @@ const Customer: React.FC<CustomerProps> = ({
   );
 };
 
-// const CustimerInfo: React.FC<Omit<CustomerProps, "img">> = ({
-//   name,
-//   id,
-//   age,
-//   gender,
-//   job,
-// }) => {
-//   return (
-//     <>
-//       <p>이름 : {name}</p>
-//       <p>id : {id}</p>
-//       <p>age : {age}</p>
-//       <p>gender : {gender}</p>
-//       <p>job : {job}</p>
-//     </>
-//   );
-// };
-
-// const CustomerImg: React.FC<Pick<CustomerProps, "img">> = ({ img }) => {
-//   return (
-//     <>
-//       <img src={img} alt="" />
-//     </>
-//   );
-// };
-//
 export default Customer;
 
 const ProfileImg = styled.img`
