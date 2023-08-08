@@ -74,9 +74,9 @@ function App() {
           <TableRow>
             <TableCell>profile</TableCell>
             <TableCell>name</TableCell>
-            <TableCell>number</TableCell>
-            <TableCell>job</TableCell>
             <TableCell>gender</TableCell>
+            <TableCell>age</TableCell>
+            <TableCell>job</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

@@ -18,9 +18,9 @@ const Customer: React.FC<CustomerProps> = ({
           <ProfileImg src={img} alt="profile" />
         </TableCell>
         <TableCell>{name}</TableCell>
+        <TableCell>{gender}</TableCell>
         <TableCell>{age}</TableCell>
         <TableCell>{job}</TableCell>
-        <TableCell>{gender}</TableCell>
       </TableRow>
     </>
   );
