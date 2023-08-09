@@ -1,7 +1,11 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
 
-const CustomerAdd: React.FC = () => {
+interface Props {
+  refreshFunc(): void;
+}
+
+const CustomerAdd: React.FC<Props> = ({ refreshFunc }) => {
   //
 
   const [file, setFile] = useState<any>(null);
@@ -31,7 +35,14 @@ const CustomerAdd: React.FC = () => {
     e.preventDefault();
     addCustomer().then((res) => {
       console.log(res.data);
+      refreshFunc();
     });
+    setFile(null);
+    setFileName("");
+    setUserName("");
+    setAge("");
+    setGender("");
+    setJob("");
   }
   //
   function handleFileChange(e: ChangeEvent<HTMLInputElement>) {

@@ -18,6 +18,7 @@ function App() {
   const callApi = async () => {
     const response = await fetch("http://localhost:5000/api/customers");
     const body = await response.json();
+    console.log(`body type is ${Array.isArray(body)}`);
     return Promise.resolve(body);
   };
 
@@ -41,8 +42,16 @@ function App() {
     progress: { margin: "10", display: "flex" },
   }; //
 
+  function refreshCustomer() {
+    setCustomers([]);
+    callApi()
+      .then(setCustomers)
+      .catch((err) => console.log(err));
+  }
+
   return (
     <div>
+      <button onClick={() => refreshCustomer()}>고객정보리로드</button>
       <TableContainer component={Paper} sx={styles.root}>
         <Table sx={styles.table} aria-label="simple table">
           <TableHead>
@@ -85,7 +94,7 @@ function App() {
           </TableBody>
         </Table>
       </TableContainer>
-      <CustomerAdd />
+      <CustomerAdd refreshFunc={refreshCustomer} />
     </div>
   );
 }
